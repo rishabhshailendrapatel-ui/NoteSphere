@@ -1,2 +1,14 @@
+# Dependencies
 node_modules/
+
+# environment Variables
 .env
+.env.local
+
+# Build files
+dist/
+build/
+
+# OS/Editor junk
+.DS_Store
+.vscode/
