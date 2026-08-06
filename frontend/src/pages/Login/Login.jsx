@@ -1,7 +1,12 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Login = () => {
-  return <div>Login Page Working !</div>;
-}
+  return (
+    <>
+      <Navbar />
+    </>
+  );
+};
 
-export default Login
+export default Login;
