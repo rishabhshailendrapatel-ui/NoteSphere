@@ -1,12 +1,27 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
 // User Schema Definition
-const userSchema = new Schema({
-  fullName: { type: String },
-  email: { type: String },
-  password: { type: String },
-  createdOn: { type: Date, default: new Date().getTime() },
+const userSchema = new mongoose.Schema({
+  fullName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  createdOn: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Export the User model
