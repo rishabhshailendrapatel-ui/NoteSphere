@@ -235,6 +235,42 @@ app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
   }
 });
 
+// Update isPinned value
+app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
+  const { noteId } = req.params;
+  const { isPinned } = req.body;
+  const { user } = req.user;
+
+  if (!isPinned) {
+    return res
+      .status(400)
+      .json({ error: true, message: "No changes provided" });
+  }
+
+  try {
+    const note = await Note.findOne({ _id: noteId, userId: user._id });
+
+    if (!note) {
+      return res.status(404).json({ error: true, message: "Note not found" });
+    }
+
+    note.isPinned = isPinned;
+
+    await note.save();
+
+    return res.json({
+      error: false,
+      note,
+      message: "Note pinned status updated successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Internal Server Error",
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on address http://localhost:${PORT}`);
 });
