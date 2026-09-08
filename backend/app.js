@@ -110,6 +110,36 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Get User
+app.get("/get-user", authenticateToken, async (req, res) => {
+  const { user } = req.user;
+
+  try {
+    const isUser = await User.findOne({ _id: user._id });
+
+    if (!isUser) {
+      return res
+        .sendStatus(401)
+        .json({ error: true, message: "User not found" });
+    }
+
+    return res.json({
+      user: {
+        fullName: isUser.fullName,
+        email: isUser.email,
+        _id: isUser._id,
+        createdOn: isUser.createdOn,
+      },
+      message: "User details retrieved successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Internal Server Error",
+    });
+  }
+});
+
 // Add Note
 app.post("/add-note", authenticateToken, async (req, res) => {
   const { title, content, tags } = req.body;
