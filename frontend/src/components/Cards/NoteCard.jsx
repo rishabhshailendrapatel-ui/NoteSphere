@@ -6,7 +6,7 @@ const NoteCard = ({
   title,
   date,
   content,
-  tags,
+  tags = [],
   isPinned,
   onEdit,
   onDelete,
