@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import TagInput from "../../components/Input/TagInput";
-import {MdClose} from "react-icons/md";
+import { MdClose } from "react-icons/md";
 
-const AddEditNotes = ({noteData, type, onClose}) => {
+const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tags, setTags] = useState([]);
@@ -10,7 +10,27 @@ const AddEditNotes = ({noteData, type, onClose}) => {
   const [error, setError] = useState(null);
 
   // Add Note
-  const addNewNote = async () => {}
+  const addNewNote = async () => {
+    try {
+      const response = await axiosInstance.post("/add-note", {
+        title,
+        content,
+        tags,
+      });
+      if (response.data && response.data.note) {
+        getAllNotes();
+        onClose();
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
 
   // Edit Note
   const editNote = async () => {}
@@ -37,8 +57,11 @@ const AddEditNotes = ({noteData, type, onClose}) => {
 
   return (
     <div className="relative">
-      <button className= "w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 hover:bg-slate-50" onClick= {onClose} >
-        <MdClose className= "text-xl text-slate-400" />
+      <button
+        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 hover:bg-slate-50"
+        onClick={onClose}
+      >
+        <MdClose className="text-xl text-slate-400" />
       </button>
       <div className="flex flex-col gap-2">
         <label className="text-xs text-slate-600">TITLE </label>
@@ -72,7 +95,9 @@ const AddEditNotes = ({noteData, type, onClose}) => {
 
       <button
         className="w-full items-center justify-center font-medium text-white rounded bg-blue-500 mt-5 p-3 hover:bg-blue-600"
-        onClick={() => {handleAddNote}}
+        onClick={() => {
+          handleAddNote
+        }}
       >
         ADD
       </button>
