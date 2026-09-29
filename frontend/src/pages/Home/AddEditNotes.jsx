@@ -3,9 +3,9 @@ import TagInput from "../../components/Input/TagInput";
 import { MdClose } from "react-icons/md";
 
 const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState(noteData?.title || "");
+  const [content, setContent] = useState(noteData?.content || "");
+  const [tags, setTags] = useState(noteData?.tags || []);
 
   const [error, setError] = useState(null);
 
@@ -33,27 +33,50 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
   };
 
   // Edit Note
-  const editNote = async () => {}
+  const editNote = async () => {
+    const noteId = noteData._id;
+    try {
+      const response = await axiosInstance.put("/edit-note/" + noteId, {
+        title,
+        content,
+        tags,
+      });
+      if (response.data && response.data.note) {
+        getAllNotes();
+        onClose();
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
+    }
+  };
 
   const handleAddNote = () => {
-    if(!title){
+    if (!title) {
       setError("Please enter the title");
       return;
     }
 
-    if(!content){
+    if (!content) {
       setError("Please enter the content");
       return;
     }
 
-    setError("")
+    setError("");
 
-    if(type === "edit"){
-      editNote()
-    }else{
-      addNewNote()
+    if (type === "edit") {
+      editNote();
+    } else {
+      addNewNote();
     }
-  }
+  };
 
   return (
     <div className="relative">
@@ -70,7 +93,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
           className="text-2xl text-slate-950 outline-none"
           placeholder="Go To Gym At 5"
           value={title}
-          onChange={({target}) => setTitle(target.value)}
+          onChange={({ target }) => setTitle(target.value)}
         />
       </div>
 
@@ -82,13 +105,13 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
           placeholder="Content"
           rows={10}
           value={content}
-          onChange={({target}) => setContent(target.value)}
+          onChange={({ target }) => setContent(target.value)}
         />
       </div>
 
       <div className="mt-3">
         <label className="text-xs text-slate-600">TAGS</label>
-        <TagInput tags={tags} setTags={setTags}/>
+        <TagInput tags={tags} setTags={setTags} />
       </div>
 
       {error && <p className="text-red-500 text-xs pt-4">{error}</p>}
@@ -96,10 +119,10 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
       <button
         className="w-full items-center justify-center font-medium text-white rounded bg-blue-500 mt-5 p-3 hover:bg-blue-600"
         onClick={() => {
-          handleAddNote
+          handleAddNote;
         }}
       >
-        ADD
+        {type === "edit" ? "UPDATE" : "ADD"}
       </button>
     </div>
   );
