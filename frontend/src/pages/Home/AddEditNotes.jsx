@@ -29,13 +29,15 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
         error.response.data.message
       ) {
         setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
       }
     }
   };
 
   // Edit Note
   const editNote = async () => {
-    const noteId = noteData._id;
+    const noteId = noteData?._id;
     try {
       const response = await axiosInstance.put("/edit-note/" + noteId, {
         title,
@@ -119,9 +121,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
 
       <button
         className="w-full items-center justify-center font-medium text-white rounded bg-blue-500 mt-5 p-3 hover:bg-blue-600"
-        onClick={() => {
-          handleAddNote;
-        }}
+        onClick={handleAddNote}
       >
         {type === "edit" ? "UPDATE" : "ADD"}
       </button>
