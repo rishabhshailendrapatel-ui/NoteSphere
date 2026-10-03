@@ -87,7 +87,13 @@ const Home = () => {
         error.response.data &&
         error.response.data.message
       ) {
+        showToastMessage(error.response.data.message, "delete");
         console.log("An unexpected error occurred. Please try again.");
+      } else {
+        showToastMessage(
+          "An unexpected error occurred. Please try again.",
+          "delete",
+        );
       }
     }
   };
