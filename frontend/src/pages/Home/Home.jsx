@@ -13,6 +13,12 @@ const Home = () => {
     data: null,
   });
 
+  const [showToastMsg, setShowToastMsg] = useState({
+    isShown: false,
+    message: "",
+    type: "add",
+  });
+
   const [allNotes, setAllNotes] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
 
@@ -20,6 +26,21 @@ const Home = () => {
 
   const handleEdit = (noteDetails) => {
     setOpenAddEditModal({ isShown: true, data: noteDetails, type: "edit" });
+  };
+
+  const showToastMessage = (message, type) => {
+    setShowToastMsg({
+      isShown: true,
+      message,
+      type,
+    });
+  };
+
+  const handleCloseToast = () => {
+    setShowToastMsg({
+      isShown: false,
+      message: "",
+    });
   };
 
   // Get User Info
@@ -69,7 +90,9 @@ const Home = () => {
               content={item.content}
               tags={item.tags}
               isPinned={item.isPinned}
-              onEdit={() => {handleEdit(item)}}
+              onEdit={() => {
+                handleEdit(item);
+              }}
               onDelete={() => {}}
               onPinNote={() => {}}
             />;
@@ -103,7 +126,15 @@ const Home = () => {
           }}
         />
         getAllNotes= {getAllNotes}
+        showToastMessage={showToastMessage}
       </Modal>
+
+      <Toast
+        isShown={showToastMsg.isShown}
+        message={showToastMsg.message}
+        type={showToastMsg.type}
+        onClose={handleCloseToast}
+      />
     </>
   );
 };
