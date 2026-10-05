@@ -5,6 +5,7 @@ import AddEditNotes from "./AddEditNotes";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import Toast from "../../components/ToastMessage/Toast";
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
