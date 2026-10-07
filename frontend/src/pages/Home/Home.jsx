@@ -5,6 +5,7 @@ import AddEditNotes from "./AddEditNotes";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import axiosInstance from "../../utils/axiosInstance";
 import Toast from "../../components/ToastMessage/Toast";
 import EmptyCard from "../../components/EmptyCard/EmptyCard";
 import AddNotesImg from "../../assets/Images/add-notes.png";
