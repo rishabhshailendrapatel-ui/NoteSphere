@@ -10,10 +10,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  // Router navigation hook
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Client-side validations
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
@@ -32,10 +35,16 @@ const Login = () => {
         password: password,
       });
 
+      // Handle custom error flag sent by backend on 200 status
+      if (response.data && response.data.error) {
+        setError(response.data.message);
+        return;
+      }
+
       // Handle successful login response
       if (response.data && response.data.accessToken) {
         localStorage.setItem("token", response.data.accessToken);
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (error) {
       // Handle login error
