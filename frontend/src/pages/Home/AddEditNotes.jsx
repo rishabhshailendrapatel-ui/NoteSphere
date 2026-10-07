@@ -25,7 +25,7 @@ const AddEditNotes = ({
         tags,
       });
       if (response.data && response.data.note) {
-        showToastMessage("Note Added Successfully");
+        showToastMessage("Note Added Successfully", "add");
         getAllNotes();
         onClose();
       }
@@ -45,14 +45,21 @@ const AddEditNotes = ({
   // Edit Note
   const editNote = async () => {
     const noteId = noteData?._id;
+
+    if (!noteId) {
+      setError("Invalid note reference.");
+      return;
+    }
+
     try {
-      const response = await axiosInstance.put("/edit-note/" + noteId, {
+      const response = await axiosInstance.put(`/edit-note/${noteId}`, {
         title,
         content,
         tags,
       });
+
       if (response.data && response.data.note) {
-        showToastMessage("Note Updated Successfully");
+        showToastMessage("Note Updated Successfully", "edit");
         getAllNotes();
         onClose();
       }
