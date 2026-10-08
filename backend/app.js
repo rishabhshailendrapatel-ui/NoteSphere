@@ -271,7 +271,7 @@ app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
   const { isPinned } = req.body;
   const { user } = req.user;
 
-  if (!isPinned) {
+  if (isPinned === undefined || isPinned === null) {
     return res
       .status(400)
       .json({ error: true, message: "No changes provided" });
