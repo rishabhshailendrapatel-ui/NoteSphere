@@ -80,13 +80,14 @@ const Home = () => {
 
   // Delete Note
   const deleteNote = async (data) => {
-    const noteId = data._id;
+    const noteId = data?._id;
+    if (!noteId) return;
+
     try {
       const response = await axiosInstance.delete("/delete-note/" + noteId);
       if (response.data && !response.data.error) {
         showToastMessage("Note Deleted Successfully", "delete");
         getAllNotes();
-        // onClose();
       }
     } catch (error) {
       if (
@@ -122,7 +123,9 @@ const Home = () => {
 
   // Update Pin Status
   const updateIsPinned = async (noteData) => {
-    const noteId = noteData._id;
+    const noteId = noteData?._id;
+    if (!noteId) return;
+
     try {
       const response = await axiosInstance.put(
         "/update-note-pinned/" + noteId,
