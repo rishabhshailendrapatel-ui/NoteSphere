@@ -146,6 +146,7 @@ const Home = () => {
 
   useEffect(() => {
     getUserInfo();
+    getAllNotes();
     return () => {};
   }, []);
 
