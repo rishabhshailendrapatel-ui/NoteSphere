@@ -134,7 +134,10 @@ const Home = () => {
         },
       );
       if (response.data && response.data.note) {
-        showToastMessage("Note Updated Successfully");
+        const message = !noteData.isPinned
+          ? "Note Pinned Successfully"
+          : "Note Unpinned Successfully";
+        showToastMessage(message, "update");
         getAllNotes();
       }
     } catch (error) {
