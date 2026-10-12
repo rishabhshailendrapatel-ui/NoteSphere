@@ -163,9 +163,9 @@ const Home = () => {
         onSearchNote={onSearchNote}
         handleClearSearch={handleClearSearch}
       />
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         {allNotes.length > 0 ? (
-          <div className="grid grid-cols-3 gap-4 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
             {allNotes.map((item, index) => (
               <NoteCard
                 key={item._id}
@@ -193,8 +193,9 @@ const Home = () => {
         )}
       </div>
 
+      {/* Floating Add Note Button */}
       <button
-        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-blue-500 hover:bg-blue-600 absolute right-10 bottom-10"
+        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-blue-500 hover:bg-blue-600 absolute right-10 bottom-10 shadow-lg transition-all"
         onClick={() => {
           setOpenAddEditModal({ isShown: true, type: "add", data: null });
         }}
@@ -202,6 +203,7 @@ const Home = () => {
         <MdAdd className="text-[32px] text-white" />
       </button>
 
+      {/* Add / Edit Model Component */}
       <Modal
         isOpen={openAddEditModal.isShown}
         onRequestClose={() =>
@@ -211,7 +213,7 @@ const Home = () => {
           overlay: { backgroundColor: "rgba(0,0,0,0.2)" },
         }}
         contentLabel=""
-        className="w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 overflow-scroll"
+        className="w-[90%] md:w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 overflow-scroll outline-none"
       >
         <AddEditNotes
           type={openAddEditModal.type}
