@@ -47,12 +47,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
-      // Handle login error
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      if (error.response?.data?.message) {
         setError(error.response.data.message);
       } else {
         setError("An unexpected error occurred. Please try again.");
@@ -64,8 +59,8 @@ const Login = () => {
     <>
       <Navbar />
 
-      <div className="flex items-center justify-center mt-28 ">
-        <div className="w-96 bg-white border rounded px-7 py-10 ">
+      <div className="flex items-center justify-center mt-28">
+        <div className="w-96 bg-white border rounded px-7 py-10">
           <form onSubmit={handleLogin}>
             <h4 className="text-2xl mb-7 font-medium">Login</h4>
 
@@ -73,30 +68,26 @@ const Login = () => {
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full text-sm bg-transparent border-[1.5px] px-5 py-3 rounded mb-4 outline-none"
             />
 
             <PasswordInput
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             {error && <p className="text-red-600 text-sm pb-1">{error}</p>}
 
             <button
               type="submit"
-              className="w-full text-md bg-blue-700  text-white p-2 my-1 rounded-xs hover:bg-blue-600"
+              className="w-full text-md bg-blue-700 text-white p-2 my-1 rounded hover:bg-blue-600 transition-colors"
             >
               Login
             </button>
 
             <p className="text-sm text-center mt-4">
-              Not registered yet ?{" "}
+              Not registered yet?{" "}
               <Link
                 to="/signup"
                 className="font-medium text-blue-700 underline"
