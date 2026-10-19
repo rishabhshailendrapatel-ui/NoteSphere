@@ -27,24 +27,31 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   };
 
   return (
-    <div className="bg-white flex items-center justify-between px-6 py-2 drop-shadow">
-      <h2 className="text-xl font-medium text-black py-2">Notes</h2>
+    <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-6 py-3 shadow-sm transition-all">
+      {/* Brand / Logo Title with Gradient Accent */}
+      <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-tight">
+        NoteSphere
+      </h2>
 
-      <SearchBar
-        value={searchQuery}
-        onChange={({ target }) => {
-          const value = target.value;
-          setSearchQuery(value);
-          
-          // FIX: Agar user backspace se poora input mita de, toh auto-reset kar dein
-          if (value === "") {
-            handleClearSearch();
-          }
-        }}
-        handleSearch={handleSearch}
-        onClearSearch={onClearSearch}
-      />
+      {/* Search Bar Component */}
+      <div className="flex-1 max-w-md mx-4">
+        <SearchBar
+          value={searchQuery}
+          onChange={({ target }) => {
+            const value = target.value;
+            setSearchQuery(value);
 
+            // Logic: Agar user backspace se poora input mita de, toh auto-reset kar dein
+            if (value === "") {
+              handleClearSearch();
+            }
+          }}
+          handleSearch={handleSearch}
+          onClearSearch={onClearSearch}
+        />
+      </div>
+
+      {/* User Profile Info & Logout */}
       <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
     </div>
   );
