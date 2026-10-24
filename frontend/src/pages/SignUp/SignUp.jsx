@@ -61,60 +61,80 @@ const SignUp = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-slate-100">
       <Navbar />
 
-      <div className="flex items-center justify-center mt-28 ">
-        <div className="w-96 border rounded bg-white px-7 py-10">
+      <div className="flex items-center justify-center mt-20 px-4">
+        <div className="w-full max-w-md bg-white border border-slate-200/80 rounded-2xl shadow-xl shadow-slate-100 px-8 py-10 transition-all">
           <form onSubmit={handleSignUp}>
-            <h4 className="text-2xl mb-7 font-medium">SignUp</h4>
+            <div className="mb-8 text-center sm:text-left">
+              <h4 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">
+                Create Account
+              </h4>
+            </div>
 
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              className="w-full text-sm bg-transparent border-[1.5px] px-5 py-3 rounded mb-4 outline-none"
-            />
+            <div className="mb-4">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
+                Full Name
+              </label>
+              <input
+                type="text"
+                placeholder="John Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full text-sm bg-slate-50/50 border border-slate-300 px-4 py-3 rounded-xl focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition-all"
+              />
+            </div>
 
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              className="w-full text-sm bg-transparent border-[1.5px] px-5 py-3 rounded mb-4 outline-none"
-            />
+            <div className="mb-4">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
+                Email Address
+              </label>
+              <input
+                type="email"
+                placeholder="name@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full text-sm bg-slate-50/50 border border-slate-300 px-4 py-3 rounded-xl focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition-all"
+              />
+            </div>
 
-            <PasswordInput
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
+            <div className="mb-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
+                Password
+              </label>
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-            {error && <p className="text-red-600 text-sm pb-1">{error}</p>}
+            {error && (
+              <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs font-medium">
+                {error}
+              </div>
+            )}
 
             <button
               type="submit"
-              className="w-full text-md bg-blue-700  text-white p-2 my-1 rounded-xs hover:bg-blue-600"
+              className="w-full mt-4 text-sm font-semibold bg-blue-600 text-white py-3 rounded-xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 active:scale-[0.98] transition-all"
             >
               Create Account
             </button>
 
-            <p className="text-sm text-center mt-4">
-              Already have an account ?{" "}
-              <Link to="/login" className="font-medium text-blue-700 underline">
+            <p className="text-sm text-center text-slate-500 mt-6">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="font-semibold text-blue-600 hover:text-blue-700 hover:underline"
+              >
                 Login
               </Link>
             </p>
           </form>
-        </div>
+        </div>``
       </div>
-    </>
+    </div>
   );
 };
 
