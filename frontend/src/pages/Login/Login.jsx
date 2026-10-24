@@ -56,41 +56,64 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
 
-      <div className="flex items-center justify-center mt-28">
-        <div className="w-96 bg-white border rounded px-7 py-10">
+      <div className="flex items-center justify-center mt-20 px-4">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 px-8 py-10">
           <form onSubmit={handleLogin}>
-            <h4 className="text-2xl mb-7 font-medium">Login</h4>
+            <div className="mb-8 text-center">
+              <h3 className="text-3xl font-bold text-gray-900 tracking-tight">
+                Welcome Back
+              </h3>
+              <p className="text-sm text-gray-500 mt-2">
+                Please enter your details to sign in to NoteSphere
+              </p>
+            </div>
 
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full text-sm bg-transparent border-[1.5px] px-5 py-3 rounded mb-4 outline-none"
-            />
+            <div className="mb-4">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                placeholder="name@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full text-sm bg-slate-50 border border-gray-300 px-4 py-3 rounded-lg outline-none focus:border-blue-600 focus:bg-white focus:ring-2 focus:ring-blue-50 transition-all"
+              />
+            </div>
 
-            <PasswordInput
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="mb-4">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+                Password
+              </label>
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-            {error && <p className="text-red-600 text-sm pb-1">{error}</p>}
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-600 text-xs font-medium text-center">
+                  {error}
+                </p>
+              </div>
+            )}
 
             <button
               type="submit"
-              className="w-full text-md bg-blue-700 text-white p-2 my-1 rounded hover:bg-blue-600 transition-colors"
+              className="w-full text-sm font-semibold bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-100 transition-all shadow-md mt-2"
             >
-              Login
+              Sign In
             </button>
 
-            <p className="text-sm text-center mt-4">
-              Not registered yet?{" "}
+            <p className="text-sm text-center text-gray-600 mt-6">
+              Don't have an account?{" "}
               <Link
                 to="/signup"
-                className="font-medium text-blue-700 underline"
+                className="font-semibold text-blue-600 hover:underline"
               >
                 Create an Account
               </Link>
@@ -98,7 +121,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
